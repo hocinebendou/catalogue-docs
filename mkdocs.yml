@@ -1,4 +1,6 @@
 site_name: H3Africa Catalogue
+markdown_extensions:
+    - admonition
 pages:
   - Introduction: index.md
   - Deployement: deploy.md
