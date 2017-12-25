@@ -1,0 +1,6 @@
+site_name: H3Africa Catalogue
+pages:
+  - Introduction: index.md
+  - Deployement: deploy.md
+
+theme: readthedocs
