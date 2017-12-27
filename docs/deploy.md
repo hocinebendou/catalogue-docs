@@ -119,3 +119,53 @@ From within the catalogue source code run the following command to start the app
     
 In your preferred browser open a new tab and enter `http:/<your VM domain name>:8080` to start working with the admin user 
 created before.
+
+### Portability
+
+A very known advantage of Java application is their portability. Although the application is implemented on a given 
+platform, e.g Unix, the Java virtual machine (JVM) is able to run the application in a different platform, e.g Windows,
+without a single change to the source code or any additional configuration is required. Moreover, it is possible 
+to pack the whole source code of the application in to a single Java ARchive file (JAR), improving portability.
+ 
+To create the JAR file, from within the source code folder run the following maven command. This process may take few 
+minutes. The `clean` statement delete the old build folder and `package` rebuild the application by downloading all 
+the dependencies, start the application and run the tests before the archiving. If no failure detected the JAR file 
+will be created and placed in the `target` folder.
+
+    mvn clean package
+    
+Previously we showed how to run the application from within the source code folder using Maven, let's see know how to run
+it with using only the created JAR file
+
+    java -Dserver.port=3000 -Dlogging.path=/var/log/h3acatalog/ -jar path_to_jar/h3acatalog-0.0.1-SNAPSHOT.jar
+    
+The last command start the application on port `3000` and print logs into the folder `/var/log/h3acatalog`
+ 
+### Run the catalogue using Supervisor
+
+Supervisor is a system for controlling and maintaining process state. We will use Supervisor to start, stop and check
+the status of the catalogue application. In your terminal install Supervisor with the following command. At the time 
+of this writing the current available version is `3.0b2-1`
+    
+    sudo apt-get install supervisor
+
+Create a new file inside `/etc/supervisor/conf.d/` and give it a name with extension `.conf`. Add the following 
+configuration lines to it
+
+    [program:h3acatalog]
+    command=/etc/alternatives/java -Dserver.port=3000 -Dlogging.path=/var/log/h3acatalog/ -jar path_to/h3acatalog-0.0.1-SNAPSHOT.jar
+    directory=/home/hocine/h3acatalog
+    user=hocine
+    autostart=true
+    autorestart=true
+    startsecs=10
+    startretries=3
+    stdout_logfile=/var/log/h3acatalog/stdout.log
+    stderr_logfile=/var/log/h3acatalog/stderr.log
+    
+The lines are straight forward and self explanatory. With the supervisor installed and configured you will be able to 
+check the status of your process, start or stop it.
+
+    sudo supervisorctl status | start | stop
+
+## Broad access with Nginx

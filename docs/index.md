@@ -1,6 +1,6 @@
 # Introduction
 
-For full documentation visit [H3Africa.org](https://h3africa.org/).
+Visit [H3Africa.org](https://h3africa.org/) for more details.
 
 ## H3Africa Biospcimens and Data Catalogue
 
@@ -10,7 +10,7 @@ tuck the biospecimens and data associated for their own subsequent studies. Inst
 the scientific community for the objective of furthering research and benefiting individuals from the outcome results
 of all studies using the biospecimens and data associated. Therefore, the biospecimens are transferred from the institutions
 and universities to central places; biobanks. Three H3Africa biobanks are created across the African continent, two in the
-central part, Ghana and Nigeria, and one in the south Africa, to contain the projects biospcimens
+central part, Ghana and Nigeria, and one in the southern part, South Africa, to contain the projects biospcimens
 
 * [IBRH3AU](http://www.ibru.mak.ac.ug/)
 * [CLS](http://www.cls.co.za/)
