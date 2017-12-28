@@ -169,3 +169,49 @@ check the status of your process, start or stop it.
     sudo supervisorctl status | start | stop
 
 ## Broad access with Nginx
+
+Nginx is a high-performance web and reverse proxy server. We will use it to intercept client HTTP requests and redirect 
+them to the catalogue application. 
+
+The same way how supervisor installed, use `apt` tool to install Nginx.
+
+    sudo apt install nginx
+
+Nginx can serve more than a site. To add a new site change directory to `/etc/nginx/sites-available` and create a new file
+`h3acatalog`. Open the newly created file and add the lines below.
+
+    upstream app_servers {
+            server localhost:3000;
+    }
+    
+    server {
+            listen 80;
+            server_name h3acatalog.sanbi.ac.za;
+            return 301 https://h3acatalog.sanbi.ac.za$request_uri;
+            server_tokens off;
+    }
+    
+    server {
+            listen 443 ssl;
+            ssl_certificate /etc/nginx/ssl/sanbi.pem;
+            ssl_certificate_key /etc/nginx/ssl/sanbi.key;
+            ssl_session_timeout 10m;
+            ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+            server_name h3acatalog.sanbi.ac.za;
+            location / {
+                    proxy_pass http://app_servers;
+                    proxy_set_header Host $host;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Host $server_name;
+                    proxy_set_header X-Forwarded-Proto https;
+                    proxy_read_timeout 1200s;
+            }
+    }
+
+To enable the site run the following command from within `/etc/nginx/sites-enabled`. The line below create a symlink to 
+the original site file.
+
+    sudo ln -s /etc/nginx/sites-available/h3acatalog /etc/nginx/sites-enabled
+
+That's it! Enjoy :-)
