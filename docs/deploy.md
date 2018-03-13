@@ -130,8 +130,8 @@ pack the whole source code of the application into a single Java ARchive file (J
  
 To create the JAR file, from within the source code folder run the following maven command. This process may take a 
 few minutes. The `clean` statement deletes the old build folder and `package` rebuilds the application by downloading
-all the dependencies. Start the application and run the tests before the archiving. If no failure is detected the JAR 
-file will be created and placed in the `target` folder.
+all the dependencies. The command starts the application and run the tests before the archiving. If no failure is 
+detected the JAR file will be created and placed in the `target` folder.
 
     mvn clean package
     
