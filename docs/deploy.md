@@ -135,7 +135,7 @@ detected the JAR file will be created and placed in the `target` folder.
 
     mvn clean package
     
-Previously we showed how to run the application from within the source code folder using Maven, let's see know how to 
+Previously we showed how to run the application from within the source code folder using Maven, let's see now how to 
 run it with using only the created JAR file:
 
     java -Dserver.port=3000 -Dlogging.path=/var/log/h3acatalog/ -jar path_to_jar/h3acatalog-0.0.1-SNAPSHOT.jar
