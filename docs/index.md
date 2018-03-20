@@ -2,7 +2,7 @@
 
 Visit [H3Africa.org](https://h3africa.org/) for more details.
 
-## H3Africa Biospcimens and Data Catalogue
+## H3Africa Biospecimen and Data Catalogue
 
 [The H3Africa Catalogue](https://h3acatalog.sanbi.ac.za/) offers researchers the ability to search information about 
 H3Africa studies. As part of funder requirements, H3Africa samples are deposited in three H3Africa biorepositories and 
