@@ -63,7 +63,7 @@ required tasks, for example enabling registred users.
 !!!Note
     Users with roles; `ARCHIVE`, `BIOBANK`, `DBAC` and `ADMIN` can be created only by the catalogue administrator user. Users
     with `RESEARCHER` role have to use the online registration form. An automatic generated email will be sent to the registred 
-    users for email address verification (see `application.properties` file for mail server configuration. The users will 
+    users for email address verification (see `application.properties` file for mail server configuration). The users will 
     not be able to login into the catalogue only after validation of the provided information by the catalogue administrator.
    
 Running the catalogue for the *first time* will automatically create the catalogue administrator in the database with 
