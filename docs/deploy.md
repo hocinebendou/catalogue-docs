@@ -57,20 +57,23 @@ Verify Neo4j is running, if not start it with the next command
     
 ## Create an administrator user in the graph database
 
-Before any commitment with the catalogue application, an administrator account has to exist to fulfill some 
-required tasks, e.g to register new users.
+Before any commitment with the catalogue application, an administrator account should exist to fulfill some 
+required tasks, for example enabling registred users.
 
 !!!Note
-    The registration form is accessible only by administrator users. Its function is to add new accounts for known users
-    characterised by the following roles: Admin, Archive, Biorepository or Dbac. Therefore, there is no access granted 
-    for normal users.
+    Users with roles; `ARCHIVE`, `BIOBANK`, `DBAC` and `ADMIN` can be created only by the catalogue administrator user. Users
+    with `RESEARCHER` role have to use the online registration form. An automatic generated email will be sent to the registred 
+    users for email address verification (see `application.properties` file for mail server configuration. The users will 
+    not be able to login into the catalogue only after validation of the provided information by the catalogue administrator.
    
-Neo4j provides a multitude of ways to interact with its database, via command line using `cypher-shell` tool or from
-browser at this URL `http://<your VM domain>:7474`. In the following, we will present how, in both cases, to create a new
-user account. Minimum essential information is needed to create a user account: a username, an encrypted password and 
-a specific role. There are plenty of online services to encrypt a human readable password, e.g. 
-[BCrypt Calculator] (https://www.dailycred.com/article/bcrypt-calculator) or if preferred integrate a Java library
-to do the work [jBCrypt](https://github.com/jeremyh/jBCrypt), however it is beyond the scope of this documentation.
+Running the catalogue for the *first time* will automatically create the catalogue administrator in the database with 
+predefined values which can be changed in `SetupLoadData.java` in the source code. However, it is possible to create 
+manually the catalogue administrator using Neo4j functionalities. Neo4j provides a multitude of ways to interact with 
+its database, via command line using `cypher-shell` tool or from browser at this URL `http://<your VM domain>:7474`. 
+In the following, we will present how, in both cases, to create a new user account. Minimum essential information are 
+needed to create a user account; a username, an encrypted password and a specific role. There are plenty of online 
+services to encrypt a human readable password, e.g. [BCrypt Calculator] (https://www.dailycred.com/article/bcrypt-calculator)
+
 Open Neo4j in your preferred browser and run the following Cypher query
     
     CREATE (:NeoUser {username: 'admin', password: '$2a$09$KyQwV3Hv0Nu4jmP753i.FOB7nFfDF3SofT1MalcohIS4ZWyysnklK', role: 'ADMIN'})
@@ -88,6 +91,7 @@ in run the following script:
 Notice how the query is delimited by a `:begin` and a `:commit` statements. The former statement marks the beginning of 
 the query and the latter marks the end of the query. This is important as it persists the information entered in the 
 database.
+
 
 ## Install Apache Maven
 
@@ -120,6 +124,12 @@ From within the catalogue source code run the following command to start the app
     
 In your preferred browser open a new tab and enter `http:/<your VM domain name>:8080` to start working with the admin 
 user created previously.
+
+!!!Note
+    Ensure that `/tmp` folder of your VM is writable otherwise it is possible that you will encounter the following issue
+    when building the catalogue 
+    
+    [ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:1.5.15.RELEASE:run (default-cli) on project h3acatalogue: An exception occurred while running. null: InvocationTargetException: *Could not open Neo4j Session for transaction; nested exception is org.neo4j.ogm.exception.ConnectionException: Error connecting to graph database using Bolt: Unable to connect to localhost:7687, ensure the database is running and that there is a working network connection to it.*
 
 ### Portability
 
